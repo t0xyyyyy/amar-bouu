@@ -1,10 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Free Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Anniversary ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    color: red;
+    font-size: 20px;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% {transform: translateY(0);}
+    100% {transform: translateY(-100vh);}
+}
+
+/* Header */
+header {
+    padding: 60px 20px;
+    color: white;
+}
+
+/* Gallery */
+.gallery img {
+    width: 250px;
+    height: 180px;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+/* Video */
+iframe {
+    width: 90%;
+    max-width: 500px;
+    height: 280px;
+    border-radius: 15px;
+}
+
+/* Timer */
+#timer {
+    font-size: 1.5em;
+    margin: 20px;
+}
+</style>
+
 </head>
+
 <body>
-  <h1>Welcome to my free hosted site 🚀</h1>
-  <p>This is hosted using GitHub Pages</p>
+
+<!-- Music -->
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<header>
+    <h1 id="typing"></h1>
+    <p>Our journey of love ❤️</p>
+</header>
+
+<div id="timer"></div>
+
+<h2>📸 Our Memories</h2>
+<div class="gallery">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+</div>
+
+<h2>🎥 Our Special Video</h2>
+<iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID"></iframe>
+
+<h2>💌 Message</h2>
+<p>Every moment with you is special. I love you ❤️</p>
+
+<script>
+// Typing effect
+let text = "Happy Anniversary ❤️";
+let i = 0;
+function type() {
+    if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, 100);
+    }
+}
+type();
+
+// Floating hearts
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+}, 300);
+
+// Love timer (change date here)
+let startDate = new Date("2022-01-01");
+
+setInterval(() => {
+    let now = new Date();
+    let diff = now - startDate;
+
+    let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("timer").innerHTML =
+        "❤️ Together for " + days + " days ❤️";
+}, 1000);
+</script>
+
 </body>
 </html>
