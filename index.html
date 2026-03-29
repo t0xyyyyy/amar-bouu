@@ -106,7 +106,10 @@ function check() {
     let password = document.getElementById("pass").value;
 
     if(password === "love123") {
-        window.location.href = "home.html";
+        let musicStart = new Audio("music.mp3");
+musicStart.play().then(() => {
+    window.location.href = "home.html";
+});
     } else {
         alert("Wrong password 😢 Try again!");
     }
