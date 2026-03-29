@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Secret</title>
+</head>
+<body style="text-align:center; margin-top:100px;">
+
+<h2>Enter Password ❤️</h2>
+<input type="password" id="pass">
+<button onclick="check()">Enter</button>
+
+<script>
+function check() {
+    let password = document.getElementById("pass").value;
+    if(password === "love123") {
+        window.location.href = "index.html";
+    } else {
+        alert("Wrong password 😢");
+    }
+}
+</script>
+
+</body>
+</html>
