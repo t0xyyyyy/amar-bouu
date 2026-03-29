@@ -54,8 +54,8 @@ header {
 <body>
 
 <!-- Music -->
-<audio autoplay loop>
-  <source src="music.mp3" type="audio/mp3">
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <header>
@@ -117,6 +117,35 @@ setInterval(() => {
     document.getElementById("timer").innerHTML =
         "❤️ Together for " + days + " days ❤️";
 }, 1000);
+
+window.addEventListener("load", function() {
+    let music = document.getElementById("bgMusic");
+
+    // Try to play music
+    let playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+
+            // Start with zero volume
+            music.volume = 0;
+
+            // Fade in
+            let volume = 0;
+            let fade = setInterval(() => {
+                if (volume < 1) {
+                    volume += 0.02;
+                    music.volume = volume;
+                } else {
+                    clearInterval(fade);
+                }
+            }, 200);
+
+        }).catch(() => {
+            console.log("Autoplay blocked");
+        });
+    }
+});
 </script>
 
 </body>
