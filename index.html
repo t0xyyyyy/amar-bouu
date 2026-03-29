@@ -42,14 +42,6 @@ header {
     border-radius: 15px;
 }
 
-/* Video */
-iframe {
-    width: 90%;
-    max-width: 500px;
-    height: 280px;
-    border-radius: 15px;
-}
-
 /* Timer */
 #timer {
     font-size: 1.5em;
@@ -81,11 +73,14 @@ iframe {
     <img src="photo4.jpeg">
 </div>
 
-<h2>🎥 Our Special Video</h2>
-<iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID"></iframe>
-
 <h2>💌 Message</h2>
 <p>Every moment with you is special. I love you ❤️</p>
+
+<h2>🎥 Our Special Video</h2>
+<video controls autoplay loop muted style="width:90%; max-width:500px; border-radius:15px;">
+  <source src="video.mp4" type="video/mp4">
+  Your browser does not support video.
+</video>
 
 <script>
 // Typing effect
