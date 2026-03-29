@@ -47,26 +47,61 @@ header {
     font-size: 1.5em;
     margin: 20px;
 }
+
+#musicControl {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+
+    box-shadow: 0 0 15px rgba(255, 75, 125, 0.6);
+    transition: 0.3s;
+
+    animation: glow 2s infinite alternate;
+}
+
+/* Hover effect */
+#musicControl:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 75, 125, 1);
+}
+
+/* Click animation */
+#musicControl:active {
+    transform: scale(0.9);
+}
+
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px #ff4b7d;
+    }
+    to {
+        box-shadow: 0 0 25px #ff99ac;
+    }
+}
+
 </style>
 
 </head>
 
 <body>
 
-<button onclick="toggleMusic()" id="musicBtn" style="
-position: fixed;
-top: 20px;
-right: 20px;
-padding:10px 15px;
-border:none;
-border-radius:20px;
-background:#ff4b7d;
-color:white;
-font-weight:bold;
-cursor:pointer;
-z-index:1000;">
-⏸ Pause
-</button>
+<div id="musicControl" onclick="toggleMusic()">
+    <span id="icon">⏸</span>
+</div>
 
 <!-- Music -->
 <audio id="bgMusic" loop>
@@ -184,14 +219,14 @@ let isPlaying = true;
 
 function toggleMusic() {
     let music = document.getElementById("bgMusic");
-    let btn = document.getElementById("musicBtn");
+    let icon = document.getElementById("icon");
 
     if (isPlaying) {
         music.pause();
-        btn.innerHTML = "▶ Play";
+        icon.innerHTML = "▶";
     } else {
         music.play();
-        btn.innerHTML = "⏸ Pause";
+        icon.innerHTML = "⏸";
     }
 
     isPlaying = !isPlaying;
