@@ -53,6 +53,21 @@ header {
 
 <body>
 
+<button onclick="toggleMusic()" id="musicBtn" style="
+position: fixed;
+top: 20px;
+right: 20px;
+padding:10px 15px;
+border:none;
+border-radius:20px;
+background:#ff4b7d;
+color:white;
+font-weight:bold;
+cursor:pointer;
+z-index:1000;">
+⏸ Pause
+</button>
+
 <!-- Music -->
 <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
@@ -146,6 +161,44 @@ window.addEventListener("load", function() {
         });
     }
 });
+
+window.addEventListener("beforeunload", function () {
+    let music = document.getElementById("bgMusic");
+
+    if (!music) return;
+
+    let volume = music.volume;
+
+    let fade = setInterval(() => {
+        if (volume > 0.05) {
+            volume -= 0.05;
+            music.volume = volume;
+        } else {
+            music.volume = 0;
+            clearInterval(fade);
+        }
+    }, 100);
+});
+
+let isPlaying = true;
+
+function toggleMusic() {
+    let music = document.getElementById("bgMusic");
+    let btn = document.getElementById("musicBtn");
+
+    if (isPlaying) {
+        music.pause();
+        btn.innerHTML = "▶ Play";
+    } else {
+        music.play();
+        btn.innerHTML = "⏸ Pause";
+    }
+
+    isPlaying = !isPlaying;
+}
+
+
+
 </script>
 
 </body>
