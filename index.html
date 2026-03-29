@@ -9,7 +9,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,49 +18,71 @@ body {
     color: white;
 }
 
-/* Glass box */
+/* Blur overlay for transition */
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(20px);
+    opacity: 0;
+    transition: 1s;
+    pointer-events: none;
+}
+
+/* Glass card */
 .container {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.08);
     padding: 40px;
     border-radius: 20px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
 
 /* Input */
 input {
-    padding: 10px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 12px;
     border: none;
     margin-top: 15px;
-    width: 200px;
+    width: 220px;
+    outline: none;
 }
 
 /* Button */
 button {
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     margin-top: 15px;
-    background: white;
-    color: #ff4b7d;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
 }
 
-button:hover {
-    background: #ff4b7d;
-    color: white;
+/* Glow effect */
+button {
+    animation: glow 2s infinite alternate;
 }
 
-/* Floating hearts */
-.heart {
+@keyframes glow {
+    from { box-shadow: 0 0 10px #667eea; }
+    to { box-shadow: 0 0 25px #764ba2; }
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Floating particles */
+.particle {
     position: absolute;
     bottom: -10px;
-    font-size: 20px;
-    animation: float 5s linear infinite;
+    font-size: 14px;
+    opacity: 0.7;
+    animation: float 6s linear infinite;
 }
 
 @keyframes float {
@@ -68,9 +90,8 @@ button:hover {
     100% {transform: translateY(-100vh);}
 }
 
-/* Typing text */
 #typing {
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin-bottom: 10px;
 }
 </style>
@@ -79,18 +100,25 @@ button:hover {
 
 <body>
 
+<div id="overlay"></div>
+
 <div class="container">
     <h2 id="typing"></h2>
-    <p>Enter our secret ❤️</p>
+    <p>Enter the secret to continue ✨</p>
 
-    <input type="password" id="pass" placeholder="Enter password">
+    <input type="password" id="pass" placeholder="Password">
     <br>
-    <button onclick="check()">Unlock 💖</button>
+    <button onclick="check()">Unlock 💫</button>
 </div>
+
+<!-- Soft background music -->
+<audio id="loginMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 // Typing effect
-let text = "Welcome My Love ❤️";
+let text = "A Little Surprise For You 💖";
 let i = 0;
 function type() {
     if (i < text.length) {
@@ -101,30 +129,42 @@ function type() {
 }
 type();
 
+// Play music on first click
+document.addEventListener("click", function() {
+    let music = document.getElementById("loginMusic");
+    music.volume = 0.3;
+    music.play();
+}, { once: true });
+
 // Password check
 function check() {
     let password = document.getElementById("pass").value;
 
     if(password === "love123") {
-        let musicStart = new Audio("music.mp3");
-musicStart.play().then(() => {
-    window.location.href = "home.html";
-});
+
+        // Blur transition
+        let overlay = document.getElementById("overlay");
+        overlay.style.opacity = "1";
+
+        setTimeout(() => {
+            window.location.href = "home.html";
+        }, 1000);
+
     } else {
-        alert("Wrong password 😢 Try again!");
+        alert("Nope 😝 that's not our secret!");
     }
 }
 
-// Floating hearts
+// Floating particles
 setInterval(() => {
-    let heart = document.createElement("div");
-    heart.innerHTML = "❤️";
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
+    let p = document.createElement("div");
+    p.innerHTML = Math.random() > 0.5 ? "✨" : "❤️";
+    p.className = "particle";
+    p.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(p);
 
-    setTimeout(() => heart.remove(), 5000);
-}, 300);
+    setTimeout(() => p.remove(), 6000);
+}, 400);
 </script>
 
 </body>
